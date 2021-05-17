@@ -4,8 +4,8 @@
 # sed -i '1d' license.json
 
 # variables
-host="https://dev-secops-core.multicloud-ibm.com"
-token="Nh-UYsQoL-2i4rhyEQrAm-ZUWjex4DOdR4F4UIewBKvR1TegDkpv0HLa88BdH6Rp"
+host="https://secops-core.multicloud-ibm.com"
+token="jBmBPGgtilvJ76-GfBgZgCBXr1lnS8xbdeMScUSpMHMpXVMprZR2nbCn8-5zH9zx"
 
 allowed=("MIT" "GPL")
 denied=("New BSD")
@@ -21,10 +21,10 @@ denied=("New BSD" "\"Apache 2.0,MIT\"")
 
 postToDevopsIntelligence() {
 	echo $branch "\"$branch\"" "\"$repo\""
-	CODE=$(curl --location --request POST -sSL -w '%{http_code}' ''"$1"'/dash/api/dev_secops/v1/services/newTestLicense/licenses?scannedBy=license_finder' \
+	CODE=$(curl --location --request POST -sSL -w '%{http_code}' ''"$1"'/dash/api/dev_secops/v1/services/demoService/licenses?scannedBy=license_finder' \
  	--header 'Authorization: Token '"$2"'' \
 	--header 'Content-Type: application/json' \
-	--data-raw "'${all[@]}'" -k)
+	--data-raw  "${all[@]}"  -k)
     if [[ "$CODE" == *"200"* ]]; then
     # server return 2xx response
         echo "Posted License Scan Results to DevOps Intelligence Successfully :: "$CODE
@@ -91,7 +91,8 @@ for i in "${uniques[@]}"; do # traverse through the uniques and check if they ar
   fi
 done
 
+echo "test"
 echo payload
 echo ${all[0]}
 
-# postToDevopsIntelligence $host $token ${all[0]}
+postToDevopsIntelligence $host $token
