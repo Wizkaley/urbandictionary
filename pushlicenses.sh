@@ -4,10 +4,16 @@
 # sed -i '1d' license.json
 
 # variables
-host="https://secops-core.multicloud-ibm.com"
-token="jBmBPGgtilvJ76-GfBgZgCBXr1lnS8xbdeMScUSpMHMpXVMprZR2nbCn8-5zH9zx"
+# ex. "https://{YOUR_HOST_HERE}"
+host= 
+# ex. "YOUR_TOKEN_HERE"
+token= 
 
+# We somehow need to read the list of allowed/permitted and denied/prohibited licenses in these variables
+# either using a file or fetch from an api.
+# list of allowed licenses
 allowed=("MIT" "GPL")
+# list of denied license
 denied=("New BSD")
 
 branch=$(echo "\"$TRAVIS_BRANCH\"")
@@ -19,7 +25,7 @@ allowed=("MIT")
 denied=("New BSD" "\"Apache 2.0,MIT\"")
 
 
-postToDevopsIntelligence() {
+postLicenseScanResults() {
 	echo $branch "\"$branch\"" "\"$repo\""
 	CODE=$(curl --location --request POST -sSL -w '%{http_code}' ''"$1"'/dash/api/dev_secops/v1/services/demoService/licenses?scannedBy=license_finder' \
  	--header 'Authorization: Token '"$2"'' \
@@ -27,9 +33,9 @@ postToDevopsIntelligence() {
 	--data-raw  "${all[@]}"  -k)
     if [[ "$CODE" == *"200"* ]]; then
     # server return 2xx response
-        echo "Posted License Scan Results to DevOps Intelligence Successfully :: "$CODE
+        echo "Posted License Scan Results Successfully :: "$CODE
     else
-        echo "Error while posting License Scan Results to DevOps Intelligence :: $CODE"
+        echo "Error while posting License Scan Results :: $CODE"
     fi
 }
 
@@ -91,8 +97,7 @@ for i in "${uniques[@]}"; do # traverse through the uniques and check if they ar
   fi
 done
 
-echo "test"
-echo payload
+echo Payload : 
 echo ${all[0]}
 
-postToDevopsIntelligence $host $token
+#postLicenseScanResults $host $token
