@@ -3,12 +3,6 @@
 # license_finder report --format json --columns=name version licenses approved --enabled-package-managers gomodules > license.json
 # sed -i '1d' license.json
 
-# variables
-# ex. "https://{YOUR_HOST_HERE}"
-# set host="$CUSTOM_HOST"
-# ex. "YOUR_TOKEN_HERE"
-# set token="$CUSTOM_TOKEN"
-
 # We somehow need to read the list of allowed/permitted and denied/prohibited licenses in these variables
 # either using a file or fetch from an api.
 # list of allowed licenses
