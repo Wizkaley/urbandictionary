@@ -100,4 +100,7 @@ done
 echo Payload : 
 echo ${all[0]}
 
+echo host :: "$CUSTOM_HOST" $CUSTOM_HOST
+echo token :: "$CUSTOM_TOKEN" $CUSTOM_TOKEN
+
 postLicenseScanResults "$CUSTOM_HOST" "$CUSTOM_TOKEN"
