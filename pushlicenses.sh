@@ -5,9 +5,9 @@
 
 # variables
 # ex. "https://{YOUR_HOST_HERE}"
-host=$CUSTOM_HOST 
+host="$CUSTOM_HOST" 
 # ex. "YOUR_TOKEN_HERE"
-token=$CUSTOM_TOKEN 
+token="$CUSTOM_TOKEN"
 
 # We somehow need to read the list of allowed/permitted and denied/prohibited licenses in these variables
 # either using a file or fetch from an api.
