@@ -61,7 +61,7 @@ jobs:
        echo started :: $startedTime
        endTime=$(date --utc +%FT%T.%3NZ)
        echo end :: $endTime
-       ELAPSED=$(($endTime - $startedTime))
+       ELAPSED=$(( ($endTime) - ($startedTime)))
        echo $ELAPSED
        echo $(($ELAPSED/60))m $(($ELAPSED%60))s
     - name: The Jobs have failed
