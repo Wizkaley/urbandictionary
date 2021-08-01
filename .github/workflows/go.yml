@@ -102,7 +102,7 @@ jobs:
        echo "-------------------------------------"\
        go build buildscript/postBuildsToDI.go 
        echo "./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat $bs $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl"
-       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat $bs $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl
+       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat $bs $GITHUB_EVENT_NAME $prn $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl
     - name: Post Build Failure to DI
       if: ${{ failure() }}
       run: |
