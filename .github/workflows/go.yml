@@ -55,10 +55,13 @@ jobs:
       if: ${{ success() }}
       run: |
        # built_at='2020-01-20T17:42:40Z'
-       echo $(date --utc +%FT%T.%3NZ)
        status=Passed
        echo $status
-       echo ${{ steps.startedAt.outputs.startedAt }}
+       startedTime=${{ steps.startedAt.outputs.startedAt }}
+       endTime=$(date --utc +%FT%T.%3NZ)
+       ELAPSED=$(( $endTime - $startedTime ))
+       echo $ELAPSED
+       echo $(( $ELAPSED/60 ))m $(( $ELAPSED%60))s
     - name: The Jobs have failed
       if: ${{ failure() }}
       run: |
