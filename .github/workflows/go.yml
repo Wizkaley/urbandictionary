@@ -63,15 +63,13 @@ jobs:
        echo $(($ELAPSED/60))m $(($ELAPSED%60))s
        
        echo Publishing the build now ...
-       #cd buildScript
-       echo $PWD
        host=https://dev-dash-smoke.multicloud-ibm.com
        token=W-mLy254QkBlmDb9BBUzOh6rit4OFvGPPk6cCsN_ogWAgXZLdhjEXZrAOphzaKv-
-       serviceName=urbanDictionary
+       serviceName=UBictionary
        # $BUILD_RUNID
        #providerHref="https://github.com/$REPO"
        # $status
-       duration=$(($ELAPSED*1000000))
+       duration=$(($ELAPSED*1000000000))
        builtat=$(date --utc +%FT%T.%3NZ)
        #$BUILD_BRANCH 
        #$GITHUB_EVENT_NAME 
@@ -83,6 +81,10 @@ jobs:
        bs="master"
        prn=123
        echo "-------------------------------------"
+       if [[ $BUILD_BRANCH == "" ]];then
+        $BUILD_BRANCH="master"
+        $PULL_REQUEST_NUMBER="NIL"
+       fi
        echo $host
        echo $token
        echo $serviceName
@@ -91,9 +93,9 @@ jobs:
        echo $status
        echo $duration
        echo $builtat
-       echo $bs
+       echo $BUILD_BRANCH
        echo $GITHUB_EVENT_NAME 
-       echo $prn
+       echo $PULL_REQUEST_NUMBER
        echo $BUILD_COMMIT
        echo $buildengine
        echo $GITHUB_SERVER_URL 
@@ -101,8 +103,8 @@ jobs:
        
        echo "-------------------------------------"\
        go build buildscript/postBuildsToDI.go 
-       echo "./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat $bs $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl"
-       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat $bs $GITHUB_EVENT_NAME $prn $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl
+       echo "./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat $BRANCH_NAME $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl"
+       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat $bs $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl
     - name: Post Build Failure to DI
       if: ${{ failure() }}
       run: |
