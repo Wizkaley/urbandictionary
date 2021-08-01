@@ -70,7 +70,7 @@ jobs:
        token=W-mLy254QkBlmDb9BBUzOh6rit4OFvGPPk6cCsN_ogWAgXZLdhjEXZrAOphzaKv-
        serviceName=UBictionary
        # $BUILD_RUNID
-       #providerHref="https://github.com/$REPO"
+       providerHref=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
        # $status
        duration=$(($ELAPSED*1000000000))
        builtat=$(date --utc +%FT%T.%3NZ)
@@ -92,6 +92,7 @@ jobs:
        echo $host
        echo $token
        echo $serviceName
+       echo $providerhref
        echo $BUILD_RUNID
        echo $repourl
        echo $status
