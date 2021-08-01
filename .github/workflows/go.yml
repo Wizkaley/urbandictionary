@@ -61,7 +61,7 @@ jobs:
        endTime=$(date +%s)
        echo end :: $endTime
        ELAPSED=$((endTime-startedTime))
-       // Duration of the time
+       # Duration of the time
        echo $ELAPSED
        echo $(($ELAPSED/60))m $(($ELAPSED%60))s
     - name: The Jobs have failed
