@@ -58,7 +58,7 @@ jobs:
        status=Passed
        echo $status
        startedTime=${{ steps.startedAt.outputs.startedAt }}
-       echo started :: $startedAt
+       echo started :: $startedTime
        endTime=$(date --utc +%FT%T.%3NZ)
        echo end :: $endTime
        ELAPSED=$(($endTime - $startedTime))
