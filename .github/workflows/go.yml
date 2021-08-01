@@ -37,10 +37,8 @@ jobs:
     - name: Build
       run: go build -v ./...
 
-    - name: Post Build to DI
+    - name: Print Custom Env Variables
       run: |
-       # cd buildScript
-       #./postBuildsToDI 
        echo $REPO
        echo $GITHUB_HEAD_REF
        echo $BUILD_COMMIT
@@ -48,7 +46,7 @@ jobs:
        echo $BUILD_RUNID
        echo $PULL_REQUEST_NUMBER
        echo $GITHUB_EVENT_NAME
-    - name: The job has succeeded
+    - name: Post Build Success to DI
       if: ${{ success() }}
       run: |
        # Built At time 
@@ -64,7 +62,11 @@ jobs:
        # Duration of the time
        echo $ELAPSED
        echo $(($ELAPSED/60))m $(($ELAPSED%60))s
-    - name: The Jobs have failed
+       
+       echo Publishing the build now ...
+       cd buildScript
+       ./postBuildsToDI https://dev-dash-smoke.multicloud-ibm.com W-mLy254QkBlmDb9BBUzOh6rit4OFvGPPk6cCsN_ogWAgXZLdhjEXZrAOphzaKv- urbanDictionary $BUILD_RUNID https://github.com/$REPO $status $ELAPSED/1000000 $(date --utc +%FT%T.%3NZ) $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER GITHUBACTIONS $GITHUB_SERVER_URL https://github.com/$REPO
+    - name: Post Build Failure to DI
       if: ${{ failure() }}
       run: |
        # built_at='2020-01-20T17:42:40Z'
