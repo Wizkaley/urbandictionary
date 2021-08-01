@@ -30,7 +30,7 @@ jobs:
 
     - name: Set current date as env variable
       id: startedAt
-      run: echo "::set-output name=startedAt::$(date -d '2020-01-20T17:42:40Z' +%s)"
+      run: echo "::set-output name=startedAt::$(date +%s)"
   
     - name: Set up Go
       uses: actions/setup-go@v2
@@ -59,7 +59,7 @@ jobs:
        echo $status
        startedTime=${{ steps.startedAt.outputs.startedAt }}
        echo started :: $startedTime
-       endTime=$(date -d '2020-01-20T17:42:40Z' +%s)
+       endTime=$(date +%s)
        echo end :: $endTime
        ELAPSED=$((endTime-startedTime))
        #echo $ELAPSED
