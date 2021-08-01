@@ -1,0 +1,52 @@
+name: Go
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  REPO: ${{ github.repository }}
+  BUILD_BRANCH: ${{ github.ref }}
+  BRANCH_NAME: ${ GITHUB_HEAD_REF }
+  BUILD_COMMIT: ${{ github.sha }}
+#   PROVIDER_HREF: $GITHUB_SERVER_URL
+  BUILD_RUNID: ${{ github.run_id }}
+  CI_ENDPOINT_HOSTNAME: ${ GITHUB_SERVER_URL }
+  PULL_REQUEST_NUMBER: ${{ github.event.number }}
+  EVENT_NAME: ${ GITHUB_EVENT_NAME }
+  
+  
+  
+  
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.16
+
+    - name: Build
+      run: go build -v ./...
+
+    - name: Post Build to DI
+      run: |
+       # cd buildScript
+       #./postBuildsToDI 
+       echo $REPO
+       echo $BUILD_BRANCH
+       echo $BRANCH_NAME
+       echo BUILD_COMMIT
+       echo $GITHUB_SERVER_URL
+       echo $BUILD_RUNID
+       echo $CI_ENDPOINT_HOSTNAME
+       echo $PULL_REQUEST_NUMBER
+       echo $EVENT_NAME
+      
