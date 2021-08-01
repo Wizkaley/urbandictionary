@@ -9,7 +9,7 @@ on:
 env:
   REPO: ${{ github.repository }}
   BUILD_BRANCH: ${{ github.ref }}
-  BRANCH_NAME: ${ GITHUB_HEAD_REF }
+  BRANCH_NAME: ${{ GITHUB_HEAD_REF }}
   BUILD_COMMIT: ${{ github.sha }}
 #   PROVIDER_HREF: $GITHUB_SERVER_URL
   BUILD_RUNID: ${{ github.run_id }}
