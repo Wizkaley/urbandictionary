@@ -82,10 +82,12 @@ jobs:
        #bs="master"
        #prn=123
        echo "-------------------------------------"
-       #if [[ $BUILD_BRANCH == "" ]];then
-       # $BUILD_BRANCH="master"
-       # $PULL_REQUEST_NUMBER="NIL"
-       #fi
+       if [[ $GITHUB_EVENT_NAME == "push" ]];then
+         BUILD_BRANCH="master"
+         PULL_REQUEST_NUMBER="NIL"
+       elif [[ $GITHUB_EVENT_NAME == "pull_request" ]];then
+         BUILD_BRANCH=${{ github.ref }}
+         PULL_REQUEST_NUMBER=${{ github.event.number }}
        echo $host
        echo $token
        echo $serviceName
@@ -94,9 +96,9 @@ jobs:
        echo $status
        echo $duration
        echo $builtat
-       echo $branch
+       echo $BUILD_BRANCH
        echo $GITHUB_EVENT_NAME 
-       echo $prnumber
+       echo $PULL_REQUEST_NUMBER
        echo $BUILD_COMMIT
        echo $buildengine
        echo $GITHUB_SERVER_URL 
@@ -104,8 +106,8 @@ jobs:
        
        echo "-------------------------------------"\
        go build buildscript/postBuildsToDI.go 
-       echo "./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat $branch $GITHUB_EVENT_NAME $prnumber $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl"
-       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat $branch $GITHUB_EVENT_NAME $prunmber $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl
+       echo "./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl"
+       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl
     - name: Post Build Failure to DI
       if: ${{ failure() }}
       run: |
