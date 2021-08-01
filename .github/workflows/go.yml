@@ -15,7 +15,7 @@ env:
   BUILD_RUNID: ${{ github.run_id }}
   CI_ENDPOINT_HOSTNAME: $GITHUB_SERVER_URL
   PULL_REQUEST_NUMBER: ${{ github.event.number }}
-  EVENT_NAME: ${{ GITHUB_EVENT_NAME }}
+  EVENT_NAME: $GITHUB_EVENT_NAME
   
   
   
