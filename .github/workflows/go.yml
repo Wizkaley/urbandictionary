@@ -59,9 +59,9 @@ jobs:
        echo $status
        startedTime=${{ steps.startedAt.outputs.startedAt }}
        endTime=$(date --utc +%FT%T.%3NZ)
-       ELAPSED=$(( $endTime - $startedTime ))
+       ELAPSED=$(($endTime - $startedTime))
        echo $ELAPSED
-       echo $(( $ELAPSED/60 ))m $(( $ELAPSED%60))s
+       echo $(($ELAPSED/60))m $(($ELAPSED%60))s
     - name: The Jobs have failed
       if: ${{ failure() }}
       run: |
