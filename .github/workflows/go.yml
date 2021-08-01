@@ -71,7 +71,7 @@ jobs:
        # $BUILD_RUNID
        #providerHref="https://github.com/$REPO"
        # $status
-       duration=$(($ELAPSED/1000000))
+       duration=$(($ELAPSED*1000000))
        builtat=$(date --utc +%FT%T.%3NZ)
        #$BUILD_BRANCH 
        #$GITHUB_EVENT_NAME 
