@@ -81,6 +81,7 @@ jobs:
        # $GITHUB_SERVER_URL 
        repourl=$(echo "https://github.com/$REPO")
        bs="master"
+       prn=123
        echo "-------------------------------------"
        echo $host
        echo $token
@@ -92,7 +93,7 @@ jobs:
        echo $builtat
        echo $bs
        echo $GITHUB_EVENT_NAME 
-       echo $PULL_REQUEST_NUMBER 
+       echo $prn
        echo $BUILD_COMMIT
        echo $buildengine
        echo $GITHUB_SERVER_URL 
