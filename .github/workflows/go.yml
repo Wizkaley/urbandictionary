@@ -47,4 +47,17 @@ jobs:
        echo $BUILD_RUNID
        echo $PULL_REQUEST_NUMBER
        echo $GITHUB_EVENT_NAME
+    - name: The job has succeeded
+      if: ${{ success() }}
+        built_at='2020-01-20T17:42:40Z'
+        echo $(date -d "$built_at" +%s)
+        let status = true
+        echo "Status is $status"
+    - name: The Jobs have failed
+      if: ${{ failure() }}
+        built_at='2020-01-20T17:42:40Z'
+        echo $(date -d "$built_at" +%s)
+        let status = true
+        echo "Status is $status"
+      
       
