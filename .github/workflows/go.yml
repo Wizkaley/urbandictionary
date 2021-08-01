@@ -65,37 +65,40 @@ jobs:
        echo Publishing the build now ...
        #cd buildScript
        echo $PWD
-       #
-       #1
        host=https://dev-dash-smoke.multicloud-ibm.com
-       #2
        token=W-mLy254QkBlmDb9BBUzOh6rit4OFvGPPk6cCsN_ogWAgXZLdhjEXZrAOphzaKv-
-       #3
        serviceName=urbanDictionary
-       #4
        # $BUILD_RUNID
-       #5
        #providerHref="https://github.com/$REPO"
-       #6
        # $status
-       #7
        duration=$(($ELAPSED/1000000))
-       #8
        builtat=$(date --utc +%FT%T.%3NZ)
-       #9
        #$BUILD_BRANCH 
-       #10
        #$GITHUB_EVENT_NAME 
-       #11
        #$PULL_REQUEST_NUMBER 
-       #12
        #$BUILD_COMMIT
-       #13
        buildengine="GITACTIONS"
-       #14
        # $GITHUB_SERVER_URL 
-       #15
        repourl=$(echo "https://github.com/$REPO")
+       
+       echo "-------------------------------------"
+       echo $host
+       echo $token
+       echo $serviceName
+       echo $BUILD_RUNID
+       echo $repourl
+       echo $status
+       echo $duration
+       echo $builtat
+       echo $BUILD_BRANCH 
+       echo $GITHUB_EVENT_NAME 
+       echo $PULL_REQUEST_NUMBER 
+       echo $BUILD_COMMIT
+       echo $buildengine
+       echo $GITHUB_SERVER_URL 
+       echo $repourl
+       
+       echo "-------------------------------------"
        ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat master $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl
     - name: Post Build Failure to DI
       if: ${{ failure() }}
