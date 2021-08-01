@@ -50,16 +50,16 @@ jobs:
     - name: The job has succeeded
       if: ${{ success() }}
       run: |
-       built_at='2020-01-20T17:42:40Z'
-       echo $(date -d "$built_at" +%s)
-       status=passed
+       # built_at='2020-01-20T17:42:40Z'
+       echo $(date --utc +%FT%T.%3NZ)
+       status=Passed
        echo $status
     - name: The Jobs have failed
       if: ${{ failure() }}
       run: |
-       built_at='2020-01-20T17:42:40Z'
-       echo $(date -d "$built_at" +%s)
-       status=failed
+       # built_at='2020-01-20T17:42:40Z'
+       echo $(date --utc +%FT%T.%3NZ)
+       status=Failed
        echo $status
       
       
