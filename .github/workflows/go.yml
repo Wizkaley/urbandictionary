@@ -9,13 +9,10 @@ on:
 env:
   REPO: ${{ github.repository }}
   BUILD_BRANCH: ${{ github.ref }}
-  # BRANCH_NAME: echo $GITHUB_HEAD_REF
   BUILD_COMMIT: ${{ github.sha }}
-#   PROVIDER_HREF: $GITHUB_SERVER_URL
   BUILD_RUNID: ${{ github.run_id }}
   CI_ENDPOINT_HOSTNAME: $GITHUB_SERVER_URL
   PULL_REQUEST_NUMBER: ${{ github.event.number }}
-#   EVENT_NAME: 
   
   
   
@@ -54,7 +51,9 @@ jobs:
     - name: The job has succeeded
       if: ${{ success() }}
       run: |
-       # built_at='2020-01-20T17:42:40Z'
+       # Built At time 
+       echo Built At :: $(date --utc +%FT%T.%3NZ)
+       # status of the build
        status=Passed
        echo $status
        startedTime=${{ steps.startedAt.outputs.startedAt }}
@@ -62,8 +61,8 @@ jobs:
        endTime=$(date +%s)
        echo end :: $endTime
        ELAPSED=$((endTime-startedTime))
-       #echo $ELAPSED
-       printf "%s.%s seconds passed\n" "${ELAPSED:0: -9}" "${ELAPSED: -9:3}"
+       // Duration of the time
+       echo $ELAPSED
        echo $(($ELAPSED/60))m $(($ELAPSED%60))s
     - name: The Jobs have failed
       if: ${{ failure() }}
@@ -72,5 +71,3 @@ jobs:
        echo $(date --utc +%FT%T.%3NZ)
        status=Failed
        echo $status
-      
-      
