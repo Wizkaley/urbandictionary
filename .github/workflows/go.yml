@@ -80,7 +80,7 @@ jobs:
        buildengine="GITACTIONS"
        # $GITHUB_SERVER_URL 
        repourl=$(echo "https://github.com/$REPO")
-       
+       bs="master"
        echo "-------------------------------------"
        echo $host
        echo $token
@@ -90,7 +90,7 @@ jobs:
        echo $status
        echo $duration
        echo $builtat
-       echo $BUILD_BRANCH 
+       echo $bs
        echo $GITHUB_EVENT_NAME 
        echo $PULL_REQUEST_NUMBER 
        echo $BUILD_COMMIT
@@ -99,7 +99,7 @@ jobs:
        echo $repourl
        
        echo "-------------------------------------"
-       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat master $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl
+       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $repourl $status $duration $builtat $bs $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl
     - name: Post Build Failure to DI
       if: ${{ failure() }}
       run: |
