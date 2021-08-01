@@ -65,8 +65,8 @@ jobs:
        echo Publishing the build now ...
        #cd buildScript
        echo $PWD
-       host=https://local-core.gravitant.net/
-       token=O7d-iOHseIyoMyQM65ifIB6KSRx4taHChB8aEu_06Z_ihENnewwtqEtxmu2nkDu7
+       host=https://dev-dash-smoke.multicloud-ibm.com
+       token=W-mLy254QkBlmDb9BBUzOh6rit4OFvGPPk6cCsN_ogWAgXZLdhjEXZrAOphzaKv-
        serviceName=urbanDictionary
        # $BUILD_RUNID
        #providerHref="https://github.com/$REPO"
