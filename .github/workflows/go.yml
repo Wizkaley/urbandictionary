@@ -88,6 +88,7 @@ jobs:
        elif [[ $GITHUB_EVENT_NAME == "pull_request" ]];then
          BUILD_BRANCH=${{ github.ref }}
          PULL_REQUEST_NUMBER=${{ github.event.number }}
+       fi
        echo $host
        echo $token
        echo $serviceName
