@@ -52,14 +52,14 @@ jobs:
       run: |
         built_at='2020-01-20T17:42:40Z'
         echo $(date -d "$built_at" +%s)
-        let status = true
+        let status=passed
         echo "Status is $status"
     - name: The Jobs have failed
       if: ${{ failure() }}
       run: |
         built_at='2020-01-20T17:42:40Z'
         echo $(date -d "$built_at" +%s)
-        let status = true
+        let status=failed
         echo "Status is $status"
       
       
