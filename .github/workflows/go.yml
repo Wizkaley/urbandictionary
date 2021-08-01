@@ -9,7 +9,7 @@ on:
 env:
   REPO: ${{ github.repository }}
   BUILD_BRANCH: ${{ github.ref }}
-  BRANCH_NAME: echo $GITHUB_HEAD_REF
+  # BRANCH_NAME: echo $GITHUB_HEAD_REF
   BUILD_COMMIT: ${{ github.sha }}
 #   PROVIDER_HREF: $GITHUB_SERVER_URL
   BUILD_RUNID: ${{ github.run_id }}
@@ -41,12 +41,10 @@ jobs:
        # cd buildScript
        #./postBuildsToDI 
        echo $REPO
-       echo $BUILD_BRANCH
-       echo $BRANCH_NAME
+       echo $GITHUB_HEAD_REF
        echo $BUILD_COMMIT
        echo $GITHUB_SERVER_URL 
        echo $BUILD_RUNID
-       echo $CI_ENDPOINT_HOSTNAME
        echo $PULL_REQUEST_NUMBER
        echo $GITHUB_EVENT_NAME
       
