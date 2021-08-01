@@ -65,7 +65,7 @@ jobs:
        echo Publishing the build now ...
        #cd buildScript
        echo $PWD
-       host=http://local-core.gravitant.net
+       host=https://local-core.gravitant.net/
        token=O7d-iOHseIyoMyQM65ifIB6KSRx4taHChB8aEu_06Z_ihENnewwtqEtxmu2nkDu7
        serviceName=urbanDictionary
        # $BUILD_RUNID
