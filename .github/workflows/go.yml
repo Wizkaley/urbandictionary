@@ -40,7 +40,7 @@ jobs:
     - name: Print Custom Env Variables
       run: |
        prnumber=${PULL_REQUEST_NUMBER:-"NIL"}
-       branch=${BUILD_BRANCH:"master"}
+       branch=${BUILD_BRANCH:-"master"}
        echo $REPO
        echo $GITHUB_HEAD_REF
        echo $branch
