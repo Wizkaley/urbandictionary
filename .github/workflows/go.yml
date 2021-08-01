@@ -66,7 +66,7 @@ jobs:
        echo Publishing the build now ...
        #cd buildScript
        echo $PWD
-       ./buildscript/postBuildsToDI https://dev-dash-smoke.multicloud-ibm.com W-mLy254QkBlmDb9BBUzOh6rit4OFvGPPk6cCsN_ogWAgXZLdhjEXZrAOphzaKv- urbanDictionary $BUILD_RUNID https://github.com/$REPO $status $ELAPSED/1000000 $(date --utc +%FT%T.%3NZ) $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER GITHUBACTIONS $GITHUB_SERVER_URL https://github.com/$REPO
+       ./buildscript/postBuildsToDI https://dev-dash-smoke.multicloud-ibm.com W-mLy254QkBlmDb9BBUzOh6rit4OFvGPPk6cCsN_ogWAgXZLdhjEXZrAOphzaKv- urbanDictionary $BUILD_RUNID https://github.com/$REPO $status $ELAPSED/1000000 $(date --utc +%FT%T.%3NZ) $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT GITHUBACTIONS $GITHUB_SERVER_URL https://github.com/$REPO
     - name: Post Build Failure to DI
       if: ${{ failure() }}
       run: |
