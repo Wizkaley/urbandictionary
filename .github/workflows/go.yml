@@ -85,9 +85,8 @@ jobs:
        echo $host
        echo $token
        echo $serviceName
-       echo $providerHref
        echo $BUILD_RUNID
-       echo $repourl
+       echo $providerHref
        echo $status
        echo $duration
        echo $builtat
