@@ -189,8 +189,6 @@ func checkRedirectFunc(req *http.Request, via []*http.Request) error {
 }
 func postBuildToDevOpsIntelligence(build BuildInfoModel) (err error) {
 
-	fmt.Println("```````````POSTING TO DI````````````````````")
-
 	buildPayload := encodeBuildModel(build)
 	postURL := fmt.Sprintf("%s/dash/api/build/v1/services/%s/builds", DEVOPS_HOST, DEVOPS_SERVICE_NAME)
 	fmt.Println("```````````" + postURL + "````````````````````")
@@ -202,7 +200,7 @@ func postBuildToDevOpsIntelligence(build BuildInfoModel) (err error) {
 	}
 	fmt.Printf("response for post is :: %d \n", status)
 	if err == nil && status == http.StatusConflict {
-
+		fmt.Println("Got a conflict, PATCHING now")
 		defer conflict.Body.Close()
 		cResp := buildConflictResponse{}
 		errDecode := json.NewDecoder(conflict.Body).Decode(&cResp)
@@ -213,7 +211,7 @@ func postBuildToDevOpsIntelligence(build BuildInfoModel) (err error) {
 
 		patchURL := fmt.Sprintf("%s/dash/api/build/v1/builds/%s", DEVOPS_HOST, cResp.ID)
 		log.Printf("---------------------------------------------the id to patch is :: %v", cResp.ID)
-		log.Print("==========================================")
+
 		newBod := BuildInfoModel{}
 		newBod.BuiltAt = build.BuiltAt
 		newBod.Duration = build.Duration
@@ -225,7 +223,7 @@ func postBuildToDevOpsIntelligence(build BuildInfoModel) (err error) {
 		newBod.RepoURL = build.RepoURL
 		patchBuildPayload := encodeBuildModel(newBod)
 		nBod := strings.NewReader(string(patchBuildPayload))
-		log.Print("==========================================")
+
 		statusPatch, errPatch, _ := makeRequest(nBod, patchURL, http.MethodPatch, DEVOPS_BUILD_TOKEN)
 		if errPatch != nil {
 			fmt.Printf("error while patching the same build which was sent earlier :: %v", errPatch)
@@ -264,15 +262,14 @@ func makeRequest(body *strings.Reader, url, method, authToken string) (statusCod
 	}
 	client := &http.Client{Transport: transport}
 	client.CheckRedirect = checkRedirectFunc
-	fmt.Println("the req is  :: ", req)
 
 	resp, err = client.Do(req)
 	if err != nil {
 		fmt.Printf("error while making request to endpoint :: %v", err)
 		return
 	}
-	fmt.Println("--------------------------------------")
-	fmt.Print(resp)
-	fmt.Println("--------------------------------------")
+	// fmt.Println("--------------------------------------")
+	// fmt.Print(resp)
+	// fmt.Println("--------------------------------------")
 	return resp.StatusCode, nil, resp
 }
