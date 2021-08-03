@@ -49,6 +49,7 @@ jobs:
        echo $BUILD_RUNID
        echo $prnumber
        echo $GITHUB_EVENT_NAME
+       sadasdasdas
     - name: Post Build Success to DI
       if: ${{ success() }}
       run: |
