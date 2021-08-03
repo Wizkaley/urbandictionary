@@ -193,7 +193,7 @@ func postBuildToDevOpsIntelligence(build BuildInfoModel) (err error) {
 	postURL := fmt.Sprintf("%s/dash/api/build/v1/services/%s/builds", DEVOPS_HOST, DEVOPS_SERVICE_NAME)
 	fmt.Println("```````````" + postURL + "````````````````````")
 	bod := strings.NewReader(string(buildPayload))
-	status, err, conflict := makeRequest(bod, postURL, http.MethodPost, DEVOPS_BUILD_TOKEN)
+	status, conflict, err := makeRequest(bod, postURL, http.MethodPost, DEVOPS_BUILD_TOKEN)
 	if err != nil && status != http.StatusConflict {
 		fmt.Printf("error while talking to devops endpoints, most likely a server error :: %v", err)
 		return
@@ -246,7 +246,7 @@ func encodeBuildModel(build BuildInfoModel) (buildPayload []byte) {
 	return
 }
 
-func makeRequest(body *strings.Reader, url, method, authToken string) (statusCode int, err error, resp *http.Response) {
+func makeRequest(body *strings.Reader, url, method, authToken string) (statusCode int, resp *http.Response, err error) {
 	// req := http.Request{}
 
 	req, err := http.NewRequest(method, url, body)
@@ -271,5 +271,5 @@ func makeRequest(body *strings.Reader, url, method, authToken string) (statusCod
 	// fmt.Println("--------------------------------------")
 	// fmt.Print(resp)
 	// fmt.Println("--------------------------------------")
-	return resp.StatusCode, nil, resp
+	return resp.StatusCode, resp, nil
 }
