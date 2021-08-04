@@ -177,8 +177,6 @@ func main() {
 	bringYourOwnBuild.EndPointHostname = CI_ENDPOINT_HOSTNAME
 	bringYourOwnBuild.BuiltAt = BUILT_AT
 
-	fmt.Printf("Build is :: %v\n", bringYourOwnBuild)
-	fmt.Printf("Build TOKEN is :: %v\n", DEVOPS_BUILD_TOKEN)
 	// send this build over to DevOps Intelligence
 	postBuildToDevOpsIntelligence(bringYourOwnBuild)
 }
@@ -189,16 +187,20 @@ func checkRedirectFunc(req *http.Request, via []*http.Request) error {
 }
 func postBuildToDevOpsIntelligence(build BuildInfoModel) (err error) {
 
+	fmt.Println("############################################")
+	fmt.Println("####POSTING Build To DevOps Intelligence####")
+	fmt.Println("############################################")
+
 	buildPayload := encodeBuildModel(build)
 	postURL := fmt.Sprintf("%s/dash/api/build/v1/services/%s/builds", DEVOPS_HOST, DEVOPS_SERVICE_NAME)
-	fmt.Println("```````````" + postURL + "````````````````````")
+	fmt.Println("Posting the build to URL :: %s" + postURL)
 	bod := strings.NewReader(string(buildPayload))
 	status, conflict, err := makeRequest(bod, postURL, http.MethodPost, DEVOPS_BUILD_TOKEN)
 	if err != nil && status != http.StatusConflict {
 		fmt.Printf("error while talking to devops endpoints, most likely a server error :: %v", err)
 		return
 	}
-	fmt.Printf("response for post is :: %d \n", status)
+	fmt.Printf("Response for Post Build :: %d \n", status)
 	if err == nil && status == http.StatusConflict {
 		fmt.Println("Got a conflict, PATCHING now")
 		defer conflict.Body.Close()
@@ -210,7 +212,7 @@ func postBuildToDevOpsIntelligence(build BuildInfoModel) (err error) {
 		}
 
 		patchURL := fmt.Sprintf("%s/dash/api/build/v1/builds/%s", DEVOPS_HOST, cResp.ID)
-		log.Printf("---------------------------------------------the id to patch is :: %v", cResp.ID)
+		log.Printf("Patching the Build Record on URL :: %s", patchURL)
 
 		newBod := BuildInfoModel{}
 		newBod.BuiltAt = build.BuiltAt
@@ -268,8 +270,5 @@ func makeRequest(body *strings.Reader, url, method, authToken string) (statusCod
 		fmt.Printf("error while making request to endpoint :: %v", err)
 		return
 	}
-	// fmt.Println("--------------------------------------")
-	// fmt.Print(resp)
-	// fmt.Println("--------------------------------------")
 	return resp.StatusCode, resp, nil
 }
