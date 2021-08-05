@@ -13,7 +13,7 @@ env:
   BUILD_RUNID: ${{ github.run_id }}
   CI_ENDPOINT_HOSTNAME: $GITHUB_SERVER_URL
   PULL_REQUEST_NUMBER: ${{ github.event.number }}
-  
+  BUILD_ENGINE: "GitHub Actions"
   
   
   
@@ -91,7 +91,7 @@ jobs:
          BUILD_BRANCH=${{ github.ref }}
          PULL_REQUEST_NUMBER=${{ github.event.number }}
        fi
-       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl
+       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL $repourl
     - name: Post Build Failure to DI
       if: ${{ failure() }}
       run: |
@@ -132,4 +132,4 @@ jobs:
          BUILD_BRANCH=${{ github.ref }}
          PULL_REQUEST_NUMBER=${{ github.event.number }}
        fi
-       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT $buildengine $GITHUB_SERVER_URL $repourl
+       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL $repourl
