@@ -65,6 +65,16 @@ jobs:
        # Duration of the time
        echo $(($ELAPSED/60))m $(($ELAPSED%60))s
        
+       echo #############################
+       echo travis branch :: $TRAVIS_BRANCH
+       echo github ref :: $GITHUB_REF
+       echo github head ref :: $GITHUB_HEAD_REF
+       echo github base ref :: $GITHUB_BASE_REF
+       echo pull request number :: ${{ github.event.number }}
+       echo event :: $GITHUB_EVENT_NAME
+       echo #############################
+       
+       
        echo Publishing the build now ...
        host=https://dev-dash-smoke.multicloud-ibm.com
        token=W-mLy254QkBlmDb9BBUzOh6rit4OFvGPPk6cCsN_ogWAgXZLdhjEXZrAOphzaKv-
@@ -96,6 +106,15 @@ jobs:
        ELAPSED=$((endTime-startedTime))
        # Duration of the time
        echo $(($ELAPSED/60))m $(($ELAPSED%60))s
+       
+       echo #############################
+       echo travis branch :: $TRAVIS_BRANCH
+       echo github ref :: $GITHUB_REF
+       echo github head ref :: $GITHUB_HEAD_REF
+       echo github base ref :: $GITHUB_BASE_REF
+       echo pull request number :: ${{ github.event.number }}
+       echo event :: $GITHUB_EVENT_NAME
+       echo #############################
        
        echo Publishing the build now ...
        host=https://dev-dash-smoke.multicloud-ibm.com
