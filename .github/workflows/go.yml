@@ -119,7 +119,7 @@ jobs:
        echo Publishing the build now ...
        host=https://dev-dash-smoke.multicloud-ibm.com
        token=W-mLy254QkBlmDb9BBUzOh6rit4OFvGPPk6cCsN_ogWAgXZLdhjEXZrAOphzaKv-
-       serviceName=UBictionary
+       serviceName=hellowFromScript
        providerHref=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
        duration=$(($ELAPSED*1000000000))
        builtat=$(date --utc +%FT%T.%3NZ)
