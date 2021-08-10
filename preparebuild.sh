@@ -2,7 +2,8 @@
 
 
 event=$1
-
+echo Event :: $GITHUB_EVENT_NAME
+echo Repo Name :: ${{ github.event.repositroy.name }}
 # echo $DEV_SECOPS_HOST_TOKEN >> byob_secrets.json
 # hosts=($(jq -r '.[].host' byob_secrets.json))
 # tokens=($(jq -r '.[].byob_token' byob_secrets.json))
