@@ -71,7 +71,7 @@ jobs:
           repourl=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY
           host="dev-dash-regression2.multicloud-ibm.com"
           token="eAxRRj6dPP6o2ET0gruZC43llecDgS6GY9jzEFuDpUoZJU3hnsKyZqNPcl3lC9q1"
-          chmod +x
+          chmod +x preparebuild.sh
           ./preparebuild.sh $GITHUB_EVENT_NAME $host $token $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL $repourl
           
     - name: Post Build Failure to DI
@@ -95,5 +95,5 @@ jobs:
           repourl=$GITHUB_SERVER_URL/$REPO
           host="dev-dash-regression2.multicloud-ibm.com"
           token="eAxRRj6dPP6o2ET0gruZC43llecDgS6GY9jzEFuDpUoZJU3hnsKyZqNPcl3lC9q1"
-          chmod +x
+          chmod +x preparebuild.sh
           ./preparebuild.sh $GITHUB_EVENT_NAME $host $token $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL $repourl
