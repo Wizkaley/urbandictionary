@@ -192,7 +192,7 @@ func postBuildToDevOpsIntelligence(build BuildInfoModel) (err error) {
 	fmt.Println("############################################")
 
 	buildPayload := encodeBuildModel(build)
-	postURL := fmt.Sprintf("%s/dash/api/build/v1/services/%s/builds", DEVOPS_HOST, DEVOPS_SERVICE_NAME)
+	postURL := fmt.Sprintf("https://%s/dash/api/build/v1/services/%s/builds", DEVOPS_HOST, DEVOPS_SERVICE_NAME)
 	fmt.Println("Posting the build to URL :: %s" + postURL)
 	bod := strings.NewReader(string(buildPayload))
 	status, conflict, err := makeRequest(bod, postURL, http.MethodPost, DEVOPS_BUILD_TOKEN)
@@ -211,7 +211,7 @@ func postBuildToDevOpsIntelligence(build BuildInfoModel) (err error) {
 			return
 		}
 
-		patchURL := fmt.Sprintf("%s/dash/api/build/v1/builds/%s", DEVOPS_HOST, cResp.ID)
+		patchURL := fmt.Sprintf("https://%s/dash/api/build/v1/builds/%s", DEVOPS_HOST, cResp.ID)
 		log.Printf("Patching the Build Record on URL :: %s", patchURL)
 
 		newBod := BuildInfoModel{}
