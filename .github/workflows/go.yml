@@ -40,15 +40,14 @@ jobs:
 
     - name: Print Custom Env Variables
       run: |
-       prnumber=${PULL_REQUEST_NUMBER:-"NIL"}
-       branch=${BUILD_BRANCH:-"master"}
+
        echo $REPO
        echo $GITHUB_HEAD_REF
-       echo $branch
+       echo $BUILD_BRANCH
        echo $BUILD_COMMIT
        echo $GITHUB_SERVER_URL 
        echo $BUILD_RUNID
-       echo $prnumber
+       echo $PULL_REQUEST_NUMBER
        echo $GITHUB_EVENT_NAME
     - name: Post Build Success to DI
       if: ${{ success() }}
