@@ -58,7 +58,7 @@ jobs:
           echo Status :: $status
           startedTime=${{ steps.startedAt.outputs.startedAt }}
           endTime=$(date +%s)
-          ELAPSED=$((endTime-startedTime))
+          export ELAPSED=$((endTime-startedTime))
           # Duration of the time
           echo Build Duration :: $(($ELAPSED/60))m $(($ELAPSED%60))s
           echo Publishing the build now ...
