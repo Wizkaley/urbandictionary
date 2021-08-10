@@ -52,7 +52,6 @@ jobs:
     - name: Post Build Success to DI
       if: ${{ success() }}
       run: |
-          echo Built At :: $(date --utc +%FT%T.%3NZ)
           export STATUS=passed
           startedTime=${{ steps.startedAt.outputs.startedAt }}
           endTime=$(date +%s)
@@ -69,7 +68,7 @@ jobs:
           export STATUS=failed
           startedTime=${{ steps.startedAt.outputs.startedAt }}
           endTime=$(date +%s)
-          ELAPSED=$((endTime-startedTime))
+          export ELAPSED=$((endTime-startedTime))
           
           host="dev-dash-regression2.multicloud-ibm.com"
           token="eAxRRj6dPP6o2ET0gruZC43llecDgS6GY9jzEFuDpUoZJU3hnsKyZqNPcl3lC9q1"
