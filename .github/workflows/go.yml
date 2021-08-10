@@ -53,84 +53,45 @@ jobs:
     - name: Post Build Success to DI
       if: ${{ success() }}
       run: |
-       # Built At time 
-       echo Built At :: $(date --utc +%FT%T.%3NZ)
-       # status of the build
-       status=Passed
-       echo $status
-       startedTime=${{ steps.startedAt.outputs.startedAt }}
-       echo started :: $startedTime
-       endTime=$(date +%s)
-       echo end :: $endTime
-       ELAPSED=$((endTime-startedTime))
-       # Duration of the time
-       echo $(($ELAPSED/60))m $(($ELAPSED%60))s
-       
-       echo #############################
-       echo travis branch :: $TRAVIS_BRANCH
-       echo github ref :: $GITHUB_REF
-       echo github head ref :: $GITHUB_HEAD_REF
-       echo github base ref :: $GITHUB_BASE_REF
-       echo pull request number :: ${{ github.event.number }}
-       echo event :: $GITHUB_EVENT_NAME
-       echo #############################
-       
-       
-       echo Publishing the build now ...
-       host=https://dev-dash-smoke.multicloud-ibm.com
-       token=W-mLy254QkBlmDb9BBUzOh6rit4OFvGPPk6cCsN_ogWAgXZLdhjEXZrAOphzaKv-
-       serviceName=UBictionary
-       providerHref=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
-       duration=$(($ELAPSED*1000000000))
-       builtat=$(date --utc +%FT%T.%3NZ)
-       buildengine="GITACTIONS"
-       repourl=$(echo "https://github.com/$REPO")
-       if [[ $GITHUB_EVENT_NAME == "push" ]];then
-         BUILD_BRANCH="master"
-         PULL_REQUEST_NUMBER="NIL"
-       elif [[ $GITHUB_EVENT_NAME == "pull_request" ]];then
-         BUILD_BRANCH=${{ github.ref }}
-         PULL_REQUEST_NUMBER=${{ github.event.number }}
-       fi
-       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL $repourl
+          echo Built At :: $(date --utc +%FT%T.%3NZ)
+          status=passed
+          echo Status :: $status
+          startedTime=${{ steps.startedAt.outputs.startedAt }}
+          endTime=$(date +%s)
+          ELAPSED=$((endTime-startedTime))
+          # Duration of the time
+          echo Build Duration :: $(($ELAPSED/60))m $(($ELAPSED%60))s
+          echo Publishing the build now ...
+          
+          serviceName=${{ github.event.repository.name }}
+          echo Service Name :: $serviceName
+          providerHref=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+          duration=$(($ELAPSED*1000000000))
+          builtat=$(date --utc +%FT%T.%3NZ)
+          repourl=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY
+          host="dev-dash-regression2.multicloud-ibm.com"
+          token="eAxRRj6dPP6o2ET0gruZC43llecDgS6GY9jzEFuDpUoZJU3hnsKyZqNPcl3lC9q1"
+          ./preparebuild.sh $GITHUB_EVENT_NAME $host $token $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL $repourl
+          
     - name: Post Build Failure to DI
       if: ${{ failure() }}
       run: |
-       # built_at='2020-01-20T17:42:40Z'
-       echo $(date --utc +%FT%T.%3NZ)
-       status=Failed
-       echo $status
-        startedTime=${{ steps.startedAt.outputs.startedAt }}
-       echo started :: $startedTime
-       endTime=$(date +%s)
-       echo end :: $endTime
-       ELAPSED=$((endTime-startedTime))
-       # Duration of the time
-       echo $(($ELAPSED/60))m $(($ELAPSED%60))s
-       
-       echo #############################
-       echo travis branch :: $TRAVIS_BRANCH
-       echo github ref :: $GITHUB_REF
-       echo github head ref :: $GITHUB_HEAD_REF
-       echo github base ref :: $GITHUB_BASE_REF
-       echo pull request number :: ${{ github.event.number }}
-       echo event :: $GITHUB_EVENT_NAME
-       echo #############################
-       
-       echo Publishing the build now ...
-       host=https://dev-dash-smoke.multicloud-ibm.com
-       token=W-mLy254QkBlmDb9BBUzOh6rit4OFvGPPk6cCsN_ogWAgXZLdhjEXZrAOphzaKv-
-       serviceName=hellowFromScript
-       providerHref=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
-       duration=$(($ELAPSED*1000000000))
-       builtat=$(date --utc +%FT%T.%3NZ)
-       buildengine="GITACTIONS"
-       repourl=$(echo "https://github.com/$REPO")
-       if [[ $GITHUB_EVENT_NAME == "push" ]];then
-         BUILD_BRANCH="master"
-         PULL_REQUEST_NUMBER="NIL"
-       elif [[ $GITHUB_EVENT_NAME == "pull_request" ]];then
-         BUILD_BRANCH=${{ github.ref }}
-         PULL_REQUEST_NUMBER=${{ github.event.number }}
-       fi
-       ./buildscript/postBuildsToDI $host $token $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL $repourl
+          echo Built At :: $(date --utc +%FT%T.%3NZ)
+          status=failed
+          echo Status :: $status
+          startedTime=${{ steps.startedAt.outputs.startedAt }}
+          endTime=$(date +%s)
+          ELAPSED=$((endTime-startedTime))
+          # Duration of the time
+          echo Build Duration :: $(($ELAPSED/60))m $(($ELAPSED%60))s
+          echo Publishing the build now ...
+          
+          serviceName=${{ github.event.repository.name }}
+          echo Service Name :: $serviceName
+          providerHref=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+          duration=$(($ELAPSED*1000000000))
+          builtat=$(date --utc +%FT%T.%3NZ)
+          repourl=$GITHUB_SERVER_URL/$REPO
+          host="dev-dash-regression2.multicloud-ibm.com"
+          token="eAxRRj6dPP6o2ET0gruZC43llecDgS6GY9jzEFuDpUoZJU3hnsKyZqNPcl3lC9q1"
+          ./preparebuild.sh $GITHUB_EVENT_NAME $host $token $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL $repourl
