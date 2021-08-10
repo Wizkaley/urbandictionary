@@ -7,7 +7,7 @@ echo service name :: $SERVICE_NAME
 echo built at :: $(date --utc +%FT%T.%3NZ)
 echo providerhref :: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
 echo elapsed :: $ELAPSED
-echo status :: $status
+echo status :: $STATUS
 echo duration :: $(($ELAPSED*1000000000))
 echo builtat $(date --utc +%FT%T.%3NZ)
 echo repourl :: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY
