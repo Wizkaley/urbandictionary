@@ -14,6 +14,7 @@ env:
   CI_ENDPOINT_HOSTNAME: $GITHUB_SERVER_URL
   PULL_REQUEST_NUMBER: ${{ github.event.number }}
   BUILD_ENGINE: "GitHub Actions"
+  SERVICE_NAME: ${{ github.event.repository.name }}
   
   
   
