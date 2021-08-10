@@ -54,7 +54,7 @@ jobs:
       if: ${{ success() }}
       run: |
           echo Built At :: $(date --utc +%FT%T.%3NZ)
-          export status=passed
+          export STATUS=passed
           echo Status :: $status
           startedTime=${{ steps.startedAt.outputs.startedAt }}
           endTime=$(date +%s)
