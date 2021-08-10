@@ -54,20 +54,10 @@ jobs:
       run: |
           echo Built At :: $(date --utc +%FT%T.%3NZ)
           export STATUS=passed
-          echo Status :: $status
           startedTime=${{ steps.startedAt.outputs.startedAt }}
           endTime=$(date +%s)
           export ELAPSED=$((endTime-startedTime))
-          # Duration of the time
-          echo Build Duration :: $(($ELAPSED/60))m $(($ELAPSED%60))s
-          echo Publishing the build now ...
-          
-          serviceName=${{ github.event.repository.name }}
-          echo Service Name :: $serviceName
-          providerHref=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
-          duration=$(($ELAPSED*1000000000))
-          builtat=$(date --utc +%FT%T.%3NZ)
-          repourl=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY
+
           host="dev-dash-regression2.multicloud-ibm.com"
           token="eAxRRj6dPP6o2ET0gruZC43llecDgS6GY9jzEFuDpUoZJU3hnsKyZqNPcl3lC9q1"
           chmod +x preparebuild.sh
@@ -76,23 +66,12 @@ jobs:
     - name: Post Build Failure to DI
       if: ${{ failure() }}
       run: |
-          echo Built At :: $(date --utc +%FT%T.%3NZ)
-          status=failed
-          echo Status :: $status
+          export STATUS=failed
           startedTime=${{ steps.startedAt.outputs.startedAt }}
           endTime=$(date +%s)
           ELAPSED=$((endTime-startedTime))
-          # Duration of the time
-          echo Build Duration :: $(($ELAPSED/60))m $(($ELAPSED%60))s
-          echo Publishing the build now ...
           
-          serviceName=${{ github.event.repository.name }}
-          echo Service Name :: $serviceName
-          providerHref=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
-          duration=$(($ELAPSED*1000000000))
-          builtat=$(date --utc +%FT%T.%3NZ)
-          repourl=$GITHUB_SERVER_URL/$REPO
           host="dev-dash-regression2.multicloud-ibm.com"
           token="eAxRRj6dPP6o2ET0gruZC43llecDgS6GY9jzEFuDpUoZJU3hnsKyZqNPcl3lC9q1"
           chmod +x preparebuild.sh
-          ./preparebuild.sh $GITHUB_EVENT_NAME $host $token $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL $repourl
+          ./preparebuild.sh $GITHUB_EVENT_NAME $host $token 
