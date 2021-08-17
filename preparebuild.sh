@@ -17,8 +17,8 @@ echo commit :: $BUILD_COMMIT
 
 # get the build script 
 echo "Pulling the BRING YOUR OWN script ..."
-git clone --depth 1 https://github.kyndryl.net/MCMP-DevOps-Intelligence/dash_deploy.git dash_deploy
-chmod +x dash_deploy/byobscript/postBuildsToDI
+git clone --depth 1 https://github.com/Wizkaley/urbandictionary.git urbandictionary
+chmod +x urbandictionary/buildscript/postBuildsToDI
 # echo $DEV_SECOPS_HOST_TOKEN >> byob_secrets.json
 # hosts=($(jq -r '.[].host' byob_secrets.json))
 # tokens=($(jq -r '.[].byob_token' byob_secrets.json))
@@ -29,9 +29,9 @@ chmod +x dash_deploy/byobscript/postBuildsToDI
     if [[ $GITHUB_EVENT_NAME == "push" ]];then
         pull_request_number="NIL"
         # go run $GOPATH/src/github.kyndryl.net/MCMP-DevOps-Intelligence/dash_deploy/byobscript/postBuildsToDI.go ${hosts[i]} ${tokens[i]} $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $TRAVIS_BRANCH $GITHUB_EVENT_NAME $pull_request_number $TRAVIS_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL $repourl
-        ./dash_deploy/byobscript/postBuildsToDI $2 $3 $SERVICE_NAME $BUILD_RUNID "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" $STATUS $(($ELAPSED*1000000000)) "$(date --utc +%FT%T.%3NZ)" $BUILD_BRANCH $GITHUB_EVENT_NAME $pull_request_number $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
+        ./urbandictionary/buildscript/postBuildsToDI $2 $3 $SERVICE_NAME $BUILD_RUNID "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" $STATUS $(($ELAPSED*1000000000)) "$(date --utc +%FT%T.%3NZ)" $BUILD_BRANCH $GITHUB_EVENT_NAME $pull_request_number $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
     elif [[ $GITHUB_EVENT_NAME == "pull_request" ]];then
         # go run $GOPATH/src/github.kyndryl.net/MCMP-DevOps-Intelligence/dash_deploy/byobscript/postBuildsToDI.go ${hosts[i]} ${tokens[i]} $serviceName $BUILD_RUNID $providerHref $status $duration $builtat $TRAVIS_PULL_REQUEST_BRANCH $GITHUB_EVENT_NAME $TRAVIS_PULL_REQUEST $TRAVIS_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL $repourl
-        ./dash_deploy/byobscript/postBuildsToDI $2 $3 $SERVICE_NAME $BUILD_RUNID "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" $STATUS $(($ELAPSED*1000000000)) "$(date --utc +%FT%T.%3NZ)" $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
+        ./urbandictionary/buildscript/postBuildsToDI $2 $3 $SERVICE_NAME $BUILD_RUNID "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" $STATUS $(($ELAPSED*1000000000)) "$(date --utc +%FT%T.%3NZ)" $BUILD_BRANCH $GITHUB_EVENT_NAME $PULL_REQUEST_NUMBER $BUILD_COMMIT "$BUILD_ENGINE" $GITHUB_SERVER_URL "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
     fi
 # done
