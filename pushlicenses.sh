@@ -20,17 +20,17 @@ denied=("New BSD" "\"Apache 2.0,MIT\"")
 
 
 postLicenseScanResults() {
-	echo $branch "\"$branch\"" "\"$repo\""
-	CODE=$(curl --location --request POST -sSL -w '%{http_code}' ''"$1"'/dash/api/dev_secops/v1/services/demoService/licenses?scannedBy=license_finder' \
- 	--header 'Authorization: Token '"$2"'' \
-	--header 'Content-Type: application/json' \
-	--data-raw  "${all[@]}"  -k)
-    if [[ "$CODE" == *"200"* ]]; then
-    # server return 2xx response
-        echo "Posted License Scan Results Successfully :: "$CODE
-    else
-        echo "Error while posting License Scan Results :: $CODE"
-    fi
+# 	echo $branch "\"$branch\"" "\"$repo\""
+# 	CODE=$(curl --location --request POST -sSL -w '%{http_code}' ''"$1"'/dash/api/dev_secops/v1/services/demoService/licenses?scannedBy=license_finder' \
+#  	--header 'Authorization: Token '"$2"'' \
+# 	--header 'Content-Type: application/json' \
+# 	--data-raw  "${all[@]}"  -k)
+#     if [[ "$CODE" == *"200"* ]]; then
+#     # server return 2xx response
+#         echo "Posted License Scan Results Successfully :: "$CODE
+#     else
+#         echo "Error while posting License Scan Results :: $CODE"
+#     fi
 }
 
 
